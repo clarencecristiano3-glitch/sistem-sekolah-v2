@@ -5,6 +5,12 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\School\IndexController;
+use App\Http\Controllers\School\ShowController;
+use App\Http\Controllers\School\CreateController;
+use App\Http\Controllers\School\StoreController;
+use App\Http\Controllers\School\EditController;
+use App\Http\Controllers\School\UpdateController;
+use App\Http\Controllers\School\DestroyController;
 
 
 Route::get('/', function () {
@@ -71,19 +77,19 @@ Route::name('classes.')->prefix('classes')->group(function () {
     Route::get('/{id}', ShowController::class)->name('show');
 
     //HALAMAN TAMBAH GURU
-    Route::get('/create', [TeacherController::class, 'create'])->name('create');
+    Route::get('/create', CreateController::class)->name('create');
 
     //HALAMAN EDIT GURU
-    Route::get('/{id}/edit', [TeacherController::class, 'edit'])->name('edit');
+    Route::get('/{id}/edit', EditController::class)->name('edit');
 
     //LOGIKA TAMBAH GURU
-    Route::post('/', [TeacherController::class, 'store'])->name('store');
+    Route::post('/', StoreController::class)->name('store');
 
     //LOGIKA EDIT GURU
-    Route::put('/{id}', [TeacherController::class, 'update'])->name('update');
+    Route::put('/{id}', UpdateController::class)->name('update');
 
     //LOGIKA HAPUS GURU
-    Route::delete(' /{id}', [TeacherController::class, 'destroy'])->name('destroy');
+    Route::delete(' /{id}', DestroyController::class)->name('destroy');
 });
 
 //MANAJEMEN DATA Jurusan (resource controller)
