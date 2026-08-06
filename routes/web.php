@@ -24,22 +24,22 @@ Route::name('students.')->prefix('students')->group(function () {
     Route::get('/', [StudentController::class, 'index'])->name('index');
 
     //HALAMAN DETAIL SISWA
-    Route::get('/{id}', [StudentController::class, 'show'])->name('show');
+    Route::get('/{id}', [StudentController::class, 'show'])->name('show')->whereNumber('id');
 
     //HALAMAN TAMBAH SISWA
     Route::get('/create', [StudentController::class, 'create'])->name('create');
 
     //HALAMAN EDIT SISWA
-    Route::get('/{id}/edit', [StudentController::class, 'edit'])->name('edit');
+    Route::get('/{id}/edit', [StudentController::class, 'edit'])->name('edit')->whereNumber('id');
 
     //LOGIKA TAMBAH SISWA
     Route::post('/', [StudentController::class, 'store'])->name('store');
 
     //LOGIKA EDIT SISWA
-    Route::put('/{id}', [StudentController::class, 'update'])->name('update');
+    Route::put('/{id}', [StudentController::class, 'update'])->name('update')->whereNumber('id');
 
     //LOGIKA HAPUS SISWA
-    Route::delete(' /{id}', [StudentController::class, 'destroy'])->name('destroy');
+    Route::delete(' /{id}', [StudentController::class, 'destroy'])->name('destroy')->whereNumber('id');
 });
 
 //MANAJEMEN DATA GURU (SINGLE ACTION CONTROLLER)
@@ -49,22 +49,22 @@ Route::name('teachers.')->prefix('teachers')->group(function () {
     Route::get('/', [TeacherController::class, 'index'])->name('index');
 
     //HALAMAN DETAIL GURU
-    Route::get('/{id}', [TeacherController::class, 'show'])->name('show');
+    Route::get('/{id}', [TeacherController::class, 'show'])->name('show')->whereNumber('id');
 
     //HALAMAN TAMBAH GURU
     Route::get('/create', [TeacherController::class, 'create'])->name('create');
 
     //HALAMAN EDIT GURU
-    Route::get('/{id}/edit', [TeacherController::class, 'edit'])->name('edit');
+    Route::get('/{id}/edit', [TeacherController::class, 'edit'])->name('edit')->whereNumber('id');
 
     //LOGIKA TAMBAH GURU
     Route::post('/', [TeacherController::class, 'store'])->name('store');
 
     //LOGIKA EDIT GURU
-    Route::put('/{id}', [TeacherController::class, 'update'])->name('update');
+    Route::put('/{id}', [TeacherController::class, 'update'])->name('update')->whereNumber('id');
 
     //LOGIKA HAPUS GURU
-    Route::delete(' /{id}', [TeacherController::class, 'destroy'])->name('destroy');
+    Route::delete(' /{id}', [TeacherController::class, 'destroy'])->name('destroy')->whereNumber('id');
 });
 
 //MANAJEMEN DATA KELAS (INVOKABLE CONTROLLER)
@@ -74,22 +74,22 @@ Route::name('classes.')->prefix('classes')->group(function () {
     Route::get('/', IndexController::class)->name('index');
 
     //HALAMAN DETAIL GURU
-    Route::get('/{id}', ShowController::class)->name('show');
+    Route::get('/{id}', ShowController::class)->name('show')->whereNumber('id');
 
     //HALAMAN TAMBAH GURU
     Route::get('/create', CreateController::class)->name('create');
 
     //HALAMAN EDIT GURU
-    Route::get('/{id}/edit', EditController::class)->name('edit');
+    Route::get('/{id}/edit', EditController::class)->name('edit')->whereNumber('id');
 
     //LOGIKA TAMBAH GURU
     Route::post('/', StoreController::class)->name('store');
 
     //LOGIKA EDIT GURU
-    Route::put('/{id}', UpdateController::class)->name('update');
+    Route::put('/{id}', UpdateController::class)->name('update')->whereNumber('id');
 
     //LOGIKA HAPUS GURU
-    Route::delete(' /{id}', DestroyController::class)->name('destroy');
+    Route::delete(' /{id}', DestroyController::class)->name('destroy')->whereNumber('id');
 });
 
 //MANAJEMEN DATA Jurusan (resource controller)
