@@ -74,7 +74,7 @@ Route::name('classes.')->prefix('classes')->group(function () {
     Route::get('/', IndexController::class)->name('index');
 
     //HALAMAN DETAIL GURU
-    Route::get('/{id}', ShowController::class)->name('show')->whereNumber('id');
+    Route::get('/{id}', ShowController::class)->name('show');
 
     //HALAMAN TAMBAH GURU
     Route::get('/create', CreateController::class)->name('create');
