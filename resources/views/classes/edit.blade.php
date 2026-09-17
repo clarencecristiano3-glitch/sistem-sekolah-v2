@@ -15,21 +15,25 @@
 <form action="" method="POST" class="space-y-6 border border-[#E5E3DB] bg-white p-8">
     <div>
         <label for="name"
-            class="mb-1.5 block text-xs font-semibold uppercase tracking-[0.1em] text-[#16213A]">Nama Kelas</label>
+            class="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#16213A]">Nama Kelas</label>
         <input type="text" id="name" name="name" value="XII AKL 1"
             class="w-full border border-[#D9D6CD] bg-[#FCFBF8] px-3.5 py-2.5 text-sm focus:border-[#A16207] focus:bg-white focus:outline-none">
     </div>
 
     <div>
         <label for="grade"
-            class="mb-1.5 block text-xs font-semibold uppercase tracking-[0.1em] text-[#16213A]">Tingkat</label>
-        <input type="text" id="grade" name="grade" value="XII"
+            class="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#16213A]">Tingkat</label>
+        <select id="grade" name="grade"
             class="w-full border border-[#D9D6CD] bg-[#FCFBF8] px-3.5 py-2.5 text-sm focus:border-[#A16207] focus:bg-white focus:outline-none">
+            <option value="X">X</option>
+            <option value="XI">XI</option>
+            <option value="XII" selected>XII</option>
+        </select>
     </div>
 
     <div>
         <label for="major_id"
-            class="mb-1.5 block text-xs font-semibold uppercase tracking-[0.1em] text-[#16213A]">Jurusan</label>
+            class="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#16213A]">Jurusan</label>
         <select id="major_id" name="major_id"
             class="w-full border border-[#D9D6CD] bg-[#FCFBF8] px-3.5 py-2.5 text-sm focus:border-[#A16207] focus:bg-white focus:outline-none">
             @foreach($majors as $major )
@@ -42,7 +46,7 @@
 
     <div>
         <label for="teacher_id"
-            class="mb-1.5 block text-xs font-semibold uppercase tracking-[0.1em] text-[#16213A]">Wali Kelas</label>
+            class="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#16213A]">Wali Kelas</label>
         <select id="teacher_id" name="teacher_id"
             class="w-full border border-[#D9D6CD] bg-[#FCFBF8] px-3.5 py-2.5 text-sm focus:border-[#A16207] focus:bg-white focus:outline-none">
             @foreach($teachers as $teacher )

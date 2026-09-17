@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class MajorController extends Controller
@@ -67,14 +68,21 @@ class MajorController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(Request $request): RedirectResponse
     {
-        return view('majors.create');
+        return redirect()->route('majors.index')
+            ->with('success', 'Data jurusan berhasil ditambahkan.');
     }
 
-
-    public function destroy(string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
-        return view('majors.destroy');
+        return redirect()->route('majors.index')
+            ->with('success', 'Data jurusan berhasil diperbarui.');
+    }
+
+    public function destroy(string $id): RedirectResponse
+    {
+        return redirect()->route('majors.index')
+            ->with('success', 'Data jurusan berhasil dihapus.');
     }
 }

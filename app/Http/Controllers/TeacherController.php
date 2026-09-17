@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -16,7 +17,7 @@ class TeacherController extends Controller
                 'name' => 'Budi Santoso',
                 'gender' => 'Laki-Laki',
                 'subject' => 'Akuntansi Dasar',
-                'phone' => '081234560001',
+                'phone_number' => '081234560001',
                 'status' => 'Aktif',
             ],
             [
@@ -25,7 +26,7 @@ class TeacherController extends Controller
                 'name' => 'Siti Aminah',
                 'gender' => 'Perempuan',
                 'subject' => 'Jaringan Komputer',
-                'phone' => '081234560002',
+                'phone_number' => '081234560002',
                 'status' => 'Aktif',
             ]
         ];
@@ -65,14 +66,21 @@ class TeacherController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(Request $request): RedirectResponse
     {
-        return view('teachers.create');
+        return redirect()->route('teachers.index')
+            ->with('success', 'Data guru berhasil ditambahkan.');
     }
 
-
-    public function destroy(string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
-        return view('teachers.destroy');
+        return redirect()->route('teachers.index')
+            ->with('success', 'Data guru berhasil diperbarui.');
+    }
+
+    public function destroy(string $id): RedirectResponse
+    {
+        return redirect()->route('teachers.index')
+            ->with('success', 'Data guru berhasil dihapus.');
     }
 }

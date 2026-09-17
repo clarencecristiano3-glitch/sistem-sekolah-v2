@@ -40,7 +40,7 @@ class EditController extends Controller
                 'name' => 'Budi Santoso',
                 'gender' => 'Laki-Laki',
                 'subject' => 'Akuntansi Dasar',
-                'phone' => '081234560001',
+                'phone_number' => '081234560001',
                 'status' => 'Aktif',
             ],
             [
@@ -49,7 +49,7 @@ class EditController extends Controller
                 'name' => 'Siti Aminah',
                 'gender' => 'Perempuan',
                 'subject' => 'Jaringan Komputer',
-                'phone' => '081234560002',
+                'phone_number' => '081234560002',
                 'status' => 'Tidak Aktif',
             ]
         ];
