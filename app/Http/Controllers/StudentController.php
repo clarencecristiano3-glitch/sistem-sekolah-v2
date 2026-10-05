@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Student\StoreRequest;
+use App\Http\Requests\Student\UpdateRequest;
 use App\Models\Student;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -50,46 +51,28 @@ class StudentController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'nis' => ['required', 'string', 'size:4', 'unique:students,nis'],
-            'name' => ['required', 'string'],
-            'gender' => ['required', 'string'],
-            'major' => ['required', 'string'],
-            'class' => ['required', 'string'],
-        ]);
+        $validatedRequest = $request->validated();
 
-        /** @var array{nis: string, name: string, gender: string, major: string, class: string} $validated */
+        /** @var array{nis: string, name: string, gender: string, major: string, class: string} $validatedRequest */
         $student = new Student;
-        $student->nis = $validated['nis'];
-        $student->name = $validated['name'];
-        $student->gender = $validated['gender'];
-        $student->major = $validated['major'];
-        $student->class = $validated['class'];
+        $student->nis = $validatedRequest['nis'];
+        $student->name = $validatedRequest['name'];
+        $student->gender = $validatedRequest['gender'];
+        $student->major = $validatedRequest['major'];
+        $student->class = $validatedRequest['class'];
         $student->save();
 
         return redirect()->route('students.index')
             ->with('success', 'Data siswa berhasil ditambahkan.');
     }
 
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(UpdateRequest $request, string $id): RedirectResponse
     {
-        $validated = $request->validate([
-            'nis' => ['required', 'string', 'size:4', 'unique:students,nis,'.$id],
-            'name' => ['required', 'string'],
-            'gender' => ['required', 'string'],
-            'major' => ['required', 'string'],
-            'class' => ['required', 'string'],
-        ]);
-
+        $validatedRequest = $request->validated();
         $student = Student::query()->findOrFail($id);
-        $student->nis = $validated['nis'];
-        $student->name = $validated['name'];
-        $student->gender = $validated['gender'];
-        $student->major = $validated['major'];
-        $student->class = $validated['class'];
-        $student->save();
+        $student->update($validatedRequest);
 
         return redirect()->route('students.index')
             ->with('success', 'Data siswa berhasil diperbarui.');
