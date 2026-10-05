@@ -2,42 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-     public function index()
+    public function index()
     {
         $title = 'Sistem Sekolah - Daftar Siswa';
-        $students = [
-            [
-                'id' => 1, 
-                'nis' => 1001,
-                'name' => 'Aciok',
-                'class' => 'XII TKJ 2',
-                'major' => 'TKJ',
-            ],
-            [
-                'id' => 2, 
-                'nis' => 1002,
-                'name' => 'Shandy',
-                'class' => 'XII TKJ 1',
-                'major' => 'TKJ',
-            ]
-        ];
-            
-            
+        $students = Student::query()->orderBy('id')->get();
+
         return view('students.index', [
             'title' => $title,
             'students' => $students,
         ]);
     }
+
     public function show(string $id)
     {
         $title = 'Sistem Sekolah - Detail Siswa';
+        $student = Student::query()->findOrFail($id);
 
         return view('students.show', [
-            'title' => $title
+            'title' => $title,
+            'student' => $student,
         ]);
     }
 
@@ -46,27 +35,72 @@ class StudentController extends Controller
         $title = 'Sistem Sekolah - Tambah Siswa';
 
         return view('students.create', [
-            'title' => $title
+            'title' => $title,
         ]);
     }
 
     public function edit(string $id)
     {
         $title = 'Sistem Sekolah - Edit Siswa';
+        $student = Student::query()->findOrFail($id);
 
         return view('students.edit', [
-            'title' => $title
+            'title' => $title,
+            'student' => $student,
         ]);
     }
 
-    public function store()
+    public function store(Request $request): RedirectResponse
     {
-        return view('students.create');
+        $validated = $request->validate([
+            'nis' => ['required', 'string', 'size:4', 'unique:students,nis'],
+            'name' => ['required', 'string'],
+            'gender' => ['required', 'string'],
+            'major' => ['required', 'string'],
+            'class' => ['required', 'string'],
+        ]);
+
+        /** @var array{nis: string, name: string, gender: string, major: string, class: string} $validated */
+        $student = new Student;
+        $student->nis = $validated['nis'];
+        $student->name = $validated['name'];
+        $student->gender = $validated['gender'];
+        $student->major = $validated['major'];
+        $student->class = $validated['class'];
+        $student->save();
+
+        return redirect()->route('students.index')
+            ->with('success', 'Data siswa berhasil ditambahkan.');
     }
 
-
-    public function destroy(string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
-        return view('students.destroy');
+        $validated = $request->validate([
+            'nis' => ['required', 'string', 'size:4', 'unique:students,nis,'.$id],
+            'name' => ['required', 'string'],
+            'gender' => ['required', 'string'],
+            'major' => ['required', 'string'],
+            'class' => ['required', 'string'],
+        ]);
+
+        $student = Student::query()->findOrFail($id);
+        $student->nis = $validated['nis'];
+        $student->name = $validated['name'];
+        $student->gender = $validated['gender'];
+        $student->major = $validated['major'];
+        $student->class = $validated['class'];
+        $student->save();
+
+        return redirect()->route('students.index')
+            ->with('success', 'Data siswa berhasil diperbarui.');
+    }
+
+    public function destroy(string $id): RedirectResponse
+    {
+        $student = Student::query()->findOrFail($id);
+        $student->delete();
+
+        return redirect()->route('students.index')
+            ->with('success', 'Data siswa berhasil dihapus.');
     }
 }

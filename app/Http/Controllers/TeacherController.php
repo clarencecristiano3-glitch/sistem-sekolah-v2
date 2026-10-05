@@ -28,23 +28,21 @@ class TeacherController extends Controller
                 'subject' => 'Jaringan Komputer',
                 'phone_number' => '081234560002',
                 'status' => 'Aktif',
-            ]
+            ],
         ];
-            
-            
+
         return view('teachers.index', [
             'title' => $title,
             'teachers' => $teachers,
         ]);
     }
-  
 
     public function show(string $id)
     {
         $title = 'Sistem Sekolah - Detail Guru';
 
         return view('teachers.show', [
-            'title' => $title
+            'title' => $title,
         ]);
     }
 
@@ -53,7 +51,7 @@ class TeacherController extends Controller
         $title = 'Sistem Sekolah - Tambah Guru';
 
         return view('teachers.create', [
-            'title' => $title
+            'title' => $title,
         ]);
     }
 
@@ -62,12 +60,21 @@ class TeacherController extends Controller
         $title = 'Sistem Sekolah - Edit Guru';
 
         return view('teachers.edit', [
-            'title' => $title
+            'title' => $title,
         ]);
     }
 
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'nip' => ['required', 'string'],
+            'name' => ['required', 'string'],
+            'gender' => ['required', 'string'],
+            'subject' => ['required', 'string'],
+            'phone_number' => ['required', 'string'],
+            'status' => ['required', 'string'],
+        ]);
+
         return redirect()->route('teachers.index')
             ->with('success', 'Data guru berhasil ditambahkan.');
     }
